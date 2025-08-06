@@ -1,0 +1,119 @@
+I want you to help me build a **modular, scalable, and ethically-compliant Telegram marketing automation system** similar to Spamly (Telegram bot automation software), but with enhancements and clean architecture.
+
+---
+
+## 🎯 Goals & Core Features
+
+The tool will:
+- Manage **multiple Telegram accounts** (.session-based or phone-authenticated)
+- Automatically **join and leave Telegram groups**
+- Send **personalized messages** to group chats or individuals
+- React to messages in groups with emojis
+- Auto-respond to **inbound private messages**
+- Allow full **account customization** (name, bio, avatar, etc.)
+- Support **proxy configuration** for each account (e.g., SOCKS5 proxies)
+- Log all actions clearly and efficiently
+
+---
+
+## 🔧 Technical Stack
+
+- **Language**: Python 3.10+
+- **Telegram API**: Telethon (async)
+- **Scheduler**: `asyncio` or `apscheduler`
+- **Data Storage**: JSON or SQLite (optionally PostgreSQL for scaling)
+- **Proxies**: SOCKS5 support via `aiohttp` or `PySocks`
+- **Logging**: Use `loguru` for colored, structured logs
+- **Deployment**: Linux VPS (Ubuntu 22.04), Docker optional
+- **Optional UI**: Flask or Streamlit dashboard
+
+---
+
+## 📦 Modules to Build
+
+1. **Account Manager**
+   - Load `.session` files
+   - Assign proxies
+   - Check login status
+   - Rotate accounts for actions
+
+2. **Group Joiner / Leaver**
+   - Join groups via invite links
+   - Leave groups after X hours
+   - Monitor group activity for mentions or keywords
+
+3. **Message Broadcaster**
+   - Send messages in groups or DMs at random intervals
+   - Use spintax/randomized templates to avoid spam detection
+   - Schedule messages per account with randomized sleep
+
+4. **Auto Responder**
+   - Respond to inbound DMs using custom reply sets
+   - Optionally use GPT-4 API for dynamic, intelligent replies
+   - Track interaction history per user
+
+5. **Reactor**
+   - React to latest group messages (random emoji)
+   - Time these realistically to mimic human behavior
+
+6. **Profile Customizer**
+   - Change account names, avatars, bios, and story captions
+   - Pull data from preloaded lists (names, images, bios)
+
+7. **Logger / Monitor**
+   - Log all activities in real-time with status indicators
+   - Export logs per account
+   - Track errors and retries
+
+8. **Rate Limiter & Humanizer**
+   - Add randomized delays between actions
+   - Enforce Telegram rate limits
+   - Handle flood_wait, peer flood, and other Telegram exceptions
+
+---
+
+## 🌐 Optional Enhancements
+
+- Web UI Dashboard to:
+  - View account statuses
+  - Start/stop modules
+  - Upload session files and proxies
+  - View logs and metrics in real time
+
+- GPT-Powered Smart Auto-Responder:
+  - Use OpenAI API to generate replies based on incoming messages
+  - Context-aware conversations
+
+- Captcha/Verification Handler:
+  - Detect verification-required cases and pause automation
+
+- Session Health Checker:
+  - Periodically test accounts for bans or limitations
+
+---
+
+## ✅ Compliant Usage Notes
+
+- Do **not message users who haven’t opted in** or interacted first.
+- Avoid scraping Telegram for user data.
+- Use **response-based workflows**: let users engage first (inbound messages, group posts).
+- Rotate accounts and respect **Telegram’s fair use and spam limits**.
+- Include **timeouts** and randomized sleep patterns between actions to mimic human behavior.
+
+---
+
+## 🛠️ Sample Task to Start With
+
+Start by helping me build:
+1. A **Python class** that loads multiple `.session` files.
+2. Logs in using Telethon.
+3. Assigns a proxy per account.
+4. Joins a group.
+5. Sends a randomized message.
+6. Logs the action.
+
+Once this works, we will move on to adding response handlers, profile updates, and dashboards.
+
+---
+
+Please make sure the code is **modular**, **reusable**, and **well-documented**. Let's build this in **milestones**, starting from core functionality and scaling to more advanced features.
