@@ -16,11 +16,23 @@ export default function Dashboard() {
   const [showAddBotModal, setShowAddBotModal] = useState(false);
   const [showCreateCampaignModal, setShowCreateCampaignModal] = useState(false);
 
-  const { data: stats, isLoading: statsLoading } = useQuery({
+  const { data: stats, isLoading: statsLoading } = useQuery<{
+    activeBots: number;
+    totalSubscribers: number;
+    messagesSent: number;
+    engagementRate: number;
+  }>({
     queryKey: ["/api/dashboard/stats"],
   });
 
-  const { data: bots = [], isLoading: botsLoading } = useQuery({
+  const { data: bots = [], isLoading: botsLoading } = useQuery<Array<{
+    id: string;
+    name: string;
+    username: string;
+    isActive: boolean;
+    subscriberCount: number;
+    status: string;
+  }>>({
     queryKey: ["/api/bots"],
   });
 
@@ -35,13 +47,13 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="flex items-center justify-between">
+      <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-            <p className="text-gray-600">Monitor your bot performance and subscriber engagement</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Dashboard</h1>
+            <p className="text-sm sm:text-base text-gray-600">Monitor your bot performance and subscriber engagement</p>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <Button variant="ghost" size="sm" className="relative p-2">
               <Bell size={20} />
               <span className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full"></span>
@@ -49,17 +61,19 @@ export default function Dashboard() {
             <Button 
               onClick={() => setShowAddBotModal(true)}
               className="bg-blue-600 hover:bg-blue-700"
+              size="sm"
             >
               <Plus className="mr-2" size={16} />
-              Add Bot
+              <span className="hidden sm:inline">Add Bot</span>
+              <span className="sm:hidden">Add</span>
             </Button>
           </div>
         </div>
       </header>
 
-      <div className="p-6 space-y-6">
+      <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {statsLoading ? (
             [...Array(4)].map((_, i) => (
               <Card key={i}>
@@ -111,7 +125,7 @@ export default function Dashboard() {
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Left Column - Bot Management & Activity */}
           <div className="lg:col-span-2 space-y-6">
             {/* Bot Management Panel */}

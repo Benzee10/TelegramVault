@@ -37,21 +37,22 @@ export default function BotCard({ bot, onEdit, onToggle }: BotCardProps) {
   return (
     <Card className="bg-gray-50 border border-gray-200">
       <CardContent className="p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className={`w-10 h-10 ${getBotIconColor()} rounded-lg flex items-center justify-center`}>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-3 sm:space-y-0">
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <div className={`w-10 h-10 ${getBotIconColor()} rounded-lg flex items-center justify-center flex-shrink-0`}>
               <Bot className="text-white" size={20} />
             </div>
-            <div>
-              <h4 className="font-medium text-gray-900">{bot.name}</h4>
-              <p className="text-sm text-gray-500">@{bot.username}</p>
+            <div className="min-w-0 flex-1">
+              <h4 className="font-medium text-gray-900 truncate">{bot.name}</h4>
+              <p className="text-sm text-gray-500 truncate">@{bot.username}</p>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
-            <div className="text-right">
+          <div className="flex items-center justify-between sm:justify-end space-x-3 sm:space-x-4">
+            <div className="text-left sm:text-right">
               <p className="text-sm font-medium text-gray-900 flex items-center">
                 <Users size={14} className="mr-1" />
-                {bot.subscriberCount.toLocaleString()} subscribers
+                <span className="hidden sm:inline">{bot.subscriberCount.toLocaleString()} subscribers</span>
+                <span className="sm:hidden">{bot.subscriberCount.toLocaleString()}</span>
               </p>
               <p className={`text-xs capitalize ${getStatusColor(bot.status)}`}>
                 {bot.status}
