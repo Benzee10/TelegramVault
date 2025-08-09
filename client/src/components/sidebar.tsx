@@ -23,6 +23,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 
 const navigation = [
@@ -39,6 +40,13 @@ const navigation = [
 
 export default function AppSidebar() {
   const [location] = useLocation();
+  const { setOpenMobile, isMobile } = useSidebar();
+
+  const handleNavClick = () => {
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
 
   return (
     <Sidebar variant="inset">
@@ -66,7 +74,7 @@ export default function AppSidebar() {
                 return (
                   <SidebarMenuItem key={item.name}>
                     <SidebarMenuButton asChild isActive={isActive} className="text-gray-700 hover:bg-gray-100 data-[active=true]:bg-blue-50 data-[active=true]:text-blue-600">
-                      <Link href={item.href} className="flex items-center space-x-3 px-3 py-2 rounded-lg">
+                      <Link href={item.href} onClick={handleNavClick} className="flex items-center space-x-3 px-3 py-2 rounded-lg">
                         <Icon className="w-5 h-5" />
                         <span className="font-medium">{item.name}</span>
                       </Link>
